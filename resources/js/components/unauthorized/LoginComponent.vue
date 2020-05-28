@@ -45,7 +45,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">Login</button>
-                                <a class="btn btn-link" href="">Forgot Your Password</a>
+                                <router-link :to="{name: 'reset'}" class="btn btn-link">Forgot Your Password</router-link>
                             </div>
                         </div>
                     </form>

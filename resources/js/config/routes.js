@@ -7,6 +7,7 @@ import Users from '../components/lists/Users.vue';
 import ViewUser from "../components/pages/user/view";
 import EditUser from "../components/pages/user/edit";
 import CreateUser from "../components/pages/user/create";
+import ResetPassword from "../components/unauthorized/ResetPasswordComponent";
 
 const routes = [
     {
@@ -23,6 +24,7 @@ const routes = [
     { name: 'login', path: '/login', component: Login, meta:{ auth:false} },
     { name: 'login', path: '/login/:token/',component: Login, meta:{ auth:false } },
     { name: 'register', path: '/register', component: Register, meta:{ auth:false } },
+    { name: 'reset', path: '/reset/password', component: ResetPassword, meta:{ auth:false } },
 
     // ADMIN ROUTES
     { name: 'Dashboard' , path: '/dashboard',

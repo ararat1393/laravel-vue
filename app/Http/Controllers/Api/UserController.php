@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\ResetPassword;
 use App\Models\SocialAccount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,9 @@ use App\Models\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Http\Response;
-use App\Validators\UserValidator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -86,6 +89,25 @@ class UserController extends Controller
             ->where(['token'=>$token])
             ->first();
         return response()->json(['data' => $user],Response::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword( Request $request )
+    {
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email|exists:users,email'
+        ]);
+        if ($validator->passes()){
+            ResetPassword::create([
+                'email' => $request->email,
+                'token' => Str::random(127)
+            ]);
+            return response()->json(['message' => 'Please check your email address'],Response::HTTP_OK);
+        }
+        return response()->json(['errors'=>$validator->errors()->first()],Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
 }

@@ -7,9 +7,17 @@ Vue.use(Vuex);
 
 //=======vuex store start===========
 const store = new Vuex.Store({
+    state :{
+        message:'',
+    },
+    mutations:{
+      putMessage:function(state,message){
+          state.message = message;
+      }
+    },
     modules:{
         users,
-    }
+    },
 });
 
 //=======vuex store end===========

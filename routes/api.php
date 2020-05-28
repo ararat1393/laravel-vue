@@ -39,6 +39,7 @@ Route::prefix('auth')->namespace('Api')->group(function () {
 Route::apiResource('users', 'Api\UserController')->middleware(['auth:api']);
 
 Route::get('social-user/{token}', 'Api\UserController@socialUser');
+Route::post('password/reset', 'Api\UserController@resetPassword');
 
 Route::get('/home/links', 'HomeController@links');
 Route::get('/home/test', 'HomeController@test');
