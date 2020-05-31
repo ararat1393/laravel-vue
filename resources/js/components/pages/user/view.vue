@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                     <div class="profile-head">
                         <h5>
-                           {{ fullName }}
+                            {{ fullName }}
                         </h5>
                         <h6>
                             Web Developer and Designer
