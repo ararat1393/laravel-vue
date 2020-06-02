@@ -10,6 +10,8 @@ import ViewUser from "../components/templates/user/view";
 import EditUser from "../components/templates/user/edit";
 import CreateUser from "../components/templates/user/create";
 
+import MenuComponent from "../components/dashboard/MenuComponent";
+
 const routes = [
   {
     name: 'Home', path: '/', component: Home,

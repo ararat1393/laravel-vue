@@ -78,5 +78,6 @@
 </script>
 
 <style scoped>
-
+  @import '../../assets/css/app.css';
+  @import '../../assets/css/header.css';
 </style>

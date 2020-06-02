@@ -45,7 +45,7 @@ const loaders = [
     options: {
       sourceMap: manifest.IS_DEVELOPMENT,
       includePaths: [
-        path.join('../../', 'node_modules'),
+        path.join('../', 'node_modules'),
         path.join(manifest.paths.src, 'assets', 'styles'),
         path.join(manifest.paths.src, ''),
       ],
@@ -57,6 +57,11 @@ const rule = {
   test: /\.scss$/,
   use: [{
     loader: 'style-loader',
+    options: {
+      data: `
+          @import "@/assets/styles/index.scss";
+        `
+    }
   }].concat(loaders),
 };
 

@@ -6,17 +6,10 @@
     <div v-else>
       <component :is = "loadComponent"></component>
     </div>
-    <section class="project-wrapper">
-      <div class="content-main">
-        <router-view></router-view>
-      </div>
-    </section>
   </div>
 </template>
 <script>
-  import Dashboard from './components/dashboard/Menu';
-  import Profile from './components/profile/Menu';
-  import Unauthorized from './components/unauthorized/HeaderComponent';
+  import MenuComponent from "./components/dashboard/MenuComponent";
 
   export default {
     name: "App",
@@ -25,20 +18,18 @@
     computed:{
       loadComponent(){
         if(!this.$auth.check() ){
-          return 'Unauthorized';
+          return 'MenuComponent';
         }
         if( this.$auth.check('0') ){
-          return 'Profile';
+          return 'MenuComponent';
         }
         if( this.$auth.check('-1') ){
-          return 'Dashboard';
+          return 'MenuComponent';
         }
       }
     },
     components: {
-      Dashboard,
-      Profile,
-      Unauthorized
+      MenuComponent
     },
   }
 

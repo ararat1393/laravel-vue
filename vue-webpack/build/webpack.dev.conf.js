@@ -12,14 +12,23 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
-
+console.log(utils.assetsPath('img/name.hash.ext'))
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
-
+  resolve: {
+    extensions: ['.js', '.vue', '.json', '.scss'],
+      alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+       assets: utils.resolve('src/assets')
+    }
+  },
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
@@ -64,7 +73,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+
+    new webpack.LoaderOptionsPlugin({
+      // test: /\.xxx$/, // may apply this only for some modules
+      options: {
+        css: {
+          loaderOptions: {
+            scss: {
+              prependData: `@import "../src/assets/styles/index.scss";`
+            },
+          }
+        },
+      }
+    })
   ]
 })
 

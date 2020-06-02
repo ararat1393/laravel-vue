@@ -82,6 +82,10 @@ exports.styleLoaders = function (options) {
   return output
 }
 
+exports.resolve = function (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 exports.createNotifierCallback = () => {
   const notifier = require('node-notifier')
 
