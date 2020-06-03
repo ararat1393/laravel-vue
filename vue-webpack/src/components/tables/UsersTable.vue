@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <v-app id="inspire">
             <v-card>
                 <v-card-title>
@@ -81,5 +81,7 @@
 </script>
 
 <style scoped>
-
+  .v-input__append-inner{
+    display: none!important;
+  }
 </style>

@@ -1,58 +1,97 @@
 <template>
-    <div class="row justify-content-center" v-if="!isSocial">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Login</div>
-
-                <div class="card-body">
-                    <form method="POST" autocomplete="off" @submit.prevent="login" v-if="!success" >
-                        <div class="text-center">
-                            <span class="text-danger" v-if="message" role="alert"><strong>{{ message }}</strong></span>
-                        </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                            <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" v-model="user.email" value="user.email"  autocomplete="email" autofocus>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" v-model="user.password" value="user.password"  autocomplete="current-password">
-                            </div>
-                        </div>
-                        <div class="form-group row text-center">
-                            <div class="col-md-6 offset-md-4">
-                                <!--Facebook-->
-                                <a @click="AuthProvider('facebook')" class="btn-floating btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f"></i></a>
-                                <!--Twitter-->
-                                <a @click="AuthProvider('twitter')" class="btn-floating btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter"></i></a>
-                                <!--Google +-->
-                                <a @click="AuthProvider('google')" class="btn-floating btn-lg btn-gplus" type="button" role="button"><i class="fab fa-google-plus-g"></i></a>
-                                <!--Github-->
-                                <a @click="AuthProvider('github')" class="btn-floating btn-lg btn-git" type="button" role="button"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" v-bind:checked="{'checked':user.rememberMe,'':user.rememberMe}" v-model="user.rememberMe" id="remember">
-                                    <label class="form-check-label" for="remember">Remember Me</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                                <router-link :to="{name: 'reset'}" class="btn btn-link">Forgot Your Password</router-link>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="peers ai-s fxw-nw h-100vh">
+    <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-c bgpY-c bgsz-cv">
+      <div class="pos-a centerXY">
+        <div class="bgc-white bdrs-50p pos-r" style='width: 120px; height: 120px;'>
+          <img class="pos-a centerXY" src="../../assets/theam/static/images/logo.png" alt="">
         </div>
+      </div>
     </div>
+    <div class="col-12 col-md-4 peer peer-login pX-40 pY-80 h-100 bgc-white scrollable pos-r" style='min-width: 320px;'>
+      <h4 class="fw-300 c-grey-900 mB-40">Login</h4>
+      <form method="POST" autocomplete="off" @submit.prevent="login" v-if="!success">
+        <div class="text-center">
+            <span class="text-danger" v-if="message" role="alert"><strong>{{ message }}</strong></span>
+        </div>
+        <div class="form-group">
+          <label class="text-normal text-dark">Username</label>
+          <input
+            id="email"
+            type="text"
+            class="form-control"
+            v-model="user.email"
+            autocomplete="email"
+            autofocus>
+        </div>
+        <div class="form-group">
+          <label class="text-normal text-dark">Password</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            v-model="user.password"
+            autocomplete="current-password">
+        </div>
+        <div class="form-group peer-checkbox">
+          <div class="peers ai-c jc-sb fxw-nw">
+            <div class="peer" style="background: white">
+              <div class="checkbox checkbox-circle checkbox-info peers ai-c">
+                <input
+                  type="checkbox"
+                  id="inputCall1"
+                  v-model="user.rememberMe"
+                  true-value=1
+                  false-value=0
+                  class="peer">
+                <label for="inputCall1" class=" peers peer-greed js-sb ai-c">
+                  <span class="peer peer-greed">Remember Me</span>
+                </label>
+              </div>
+            </div>
+            <div class="peer">
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="form-group row text-center w-100">
+        <div class="col-md-12">
+          <!--Facebook-->
+          <a
+            @click="AuthProvider('facebook')"
+            class="btn-floating btn-lg btn-fb"
+            type="button"
+            role="button">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <!--Twitter-->
+          <a
+            @click="AuthProvider('twitter')"
+            class="btn-floating btn-lg btn-tw"
+            type="button"
+            role="button">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <!--Google +-->
+          <a
+            @click="AuthProvider('google')"
+            class="btn-floating btn-lg btn-gplus"
+            type="button"
+            role="button">
+            <i class="fab fa-google-plus-g"></i>
+          </a>
+          <!--Github-->
+          <a
+            @click="AuthProvider('github')"
+            class="btn-floating btn-lg btn-git"
+            type="button"
+            role="button">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -62,7 +101,8 @@
             return {
                 user:{
                     email: '',
-                    password: ''
+                    password: '',
+                    rememberMe: false
                 },
                 error:false,
                 message:false,
@@ -83,7 +123,8 @@
                 this.$auth.login({
                     data:{
                         email:self.user.email,
-                        password:self.user.password
+                        password:self.user.password,
+                        rememberMe:self.user.rememberMe
                     },
                     success: function() {
                         const page = this.$auth.user().roles == -1
@@ -110,7 +151,7 @@
                         if(response.data.error){
                             this.error = err.response.data.error;
                         } else if(response.data.redirectUrl){
-                            window.location.href = response.data.redirectUrl;
+                            window.open(response.data.redirectUrl, 'mywin',`left=${500},top=${200},width=700,height=700,toolbar=1,resizable=0`); return false;
                         }
                     })
                     .catch((err) => {
@@ -145,8 +186,13 @@
 </script>
 
 <style scoped>
-  @import '../../assets/css/app.css';
-  @import '../../assets/css/header.css';
+  @import "https://use.fontawesome.com/releases/v5.8.2/css/all.css";
+  div.peer{
+    background-image: url("../../assets/theam/static/images/bg.jpg");
+  }
+  div.peer-login{
+    background: white;
+  }
     .btn-floating {
         position: relative;
         z-index: 1;

@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <h1>{{count}}</h1>
+    <div class="w-100">
         <div class="pb-1">
             <router-link :to="{name: 'user.create'}" class="btn btn-success">Create</router-link>
         </div>

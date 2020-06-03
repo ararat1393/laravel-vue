@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import 'fullcalendar/dist/fullcalendar.min.js';
 import 'fullcalendar/dist/fullcalendar.min.css';
-
+jQuery.noConflict(false);
 export default (function () {
   const date = new Date();
   const d    = date.getDate();

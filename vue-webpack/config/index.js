@@ -4,8 +4,6 @@
 
 const path = require('path')
 
-const rules = require('../rules')
-
 module.exports = {
   dev: {
     // Paths
@@ -16,9 +14,8 @@ module.exports = {
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
+        pathRewrite: {'^/api': ''},
+        secure: false
       }
     },
 

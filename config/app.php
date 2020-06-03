@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
 
         /*
          * Package Service Providers...
