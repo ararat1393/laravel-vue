@@ -14,25 +14,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth')->namespace('Api')->group(function () {
-    Route::post('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
-    Route::get('refresh', 'AuthController@refresh');
-    Route::get('social/{provider}', 'AuthController@redirectToProvider');
-    Route::get('social/callback/{provider}', 'AuthController@handleProviderCallback');
+//Route::prefix('auth')->namespace('Api')->group(function () {
+//    Route::post('register', 'AuthController@register');
+//    Route::post('login', 'AuthController@login');
+//    Route::get('refresh', 'AuthController@refresh');
+//    Route::get('social/{provider}', 'AuthController@redirectToProvider');
+//    Route::get('social/callback/{provider}', 'AuthController@handleProviderCallback');
+//
+//    Route::middleware('auth:api')->group(function () {
+//        Route::get('user', 'AuthController@user');
+//        Route::post('logout', 'AuthController@logout');
+//    });
+//});
+//Route::apiResource('users', 'Api\UserController')->middleware(['auth:api']);
+//Route::get('social-user/{token}', 'Api\UserController@socialUser');
+//Route::post('password/reset', 'Api\UserController@resetPassword');
+//Route::get('/home/links', 'HomeController@links');
+//Route::get('/home/test', 'HomeController@test');
 
-    Route::middleware('auth:api')->group(function () {
-        Route::get('user', 'AuthController@user');
-        Route::post('logout', 'AuthController@logout');
+//Route::post('/notification/new-contact-us','Api\NotificationController@contactUs');
+
+Route::group(['prefix' => 'v1','middleware'=>['cors'],'namespace' => '\App\Rest\version\v1'], function() {
+
+    Route::prefix('auth')->group(function () {
+        Route::post('register', 'AuthController@register');
+        Route::post('login', 'AuthController@login');
+        Route::get('refresh', 'AuthController@refresh');
+
+        Route::get('social/{provider}', 'AuthController@redirectToProvider');
+        Route::get('social/callback/{provider}', 'AuthController@handleProviderCallback');
+    });
+
+    Route::get('social-user/{token}', 'UserController@socialUser');
+    Route::post('password/reset', 'UserController@resetPassword');
+
+    Route::group(['middleware'=>['auth:api']], function() {
+        Route::get('auth/user', 'AuthController@user');
+        Route::post('auth/logout', 'AuthController@logout');
+
+        Route::apiResource('users', 'UserController');
+        Route::post('/notification/new-contact-us','NotificationController@contactUs');
     });
 });
-Route::apiResource('users', 'Api\UserController')->middleware(['auth:api']);
-Route::get('social-user/{token}', 'Api\UserController@socialUser');
-Route::post('password/reset', 'Api\UserController@resetPassword');
-Route::get('/home/links', 'HomeController@links');
-Route::get('/home/test', 'HomeController@test');
-
-Route::post('/notification/new-contact-us','Api\NotificationController@contactUs');
-
-
 
