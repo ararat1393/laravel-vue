@@ -47,13 +47,14 @@ Route::group(['prefix' => 'v1','middleware'=>['cors'],'namespace' => '\App\Rest\
 
     Route::get('social-user/{token}', 'UserController@socialUser');
     Route::post('password/reset', 'UserController@resetPassword');
-
+    Route::get("/notifications/contact-us/",'NotificationController@getContacts');
     Route::group(['middleware'=>['auth:api']], function() {
         Route::get('auth/user', 'AuthController@user');
         Route::post('auth/logout', 'AuthController@logout');
 
         Route::apiResource('users', 'UserController');
-        Route::post('/notification/new-contact-us','NotificationController@contactUs');
+        Route::post('/notification/new-contact-us','NotificationController@putContact');
+
     });
 });
 

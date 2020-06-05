@@ -13,7 +13,4 @@ export default {
       return contact.viewed !== 1;
     });
   },
-  newContactUsNotifications:function (state) {
-    return [];
-  }
 }

@@ -42,7 +42,10 @@
       data(){
           return {
             routes:[
-              { name:'Users' , path:'/dashboard/users' , role:'users' , icon:'c-blue-500 ti-home' },
+              { name:'Users' , path:'/dashboard/users' , role:'users' , icon:'c-blue-500 ti-home' ,type:['-1']},
+              { name:'Contact' , path:'/profile/contact' , role:'contact' , icon:'c-brown-500 ti-email' ,type:['0']},
+              { name:'Contact-Us' , path:'/dashboard/contact-us' , role:'contacts' , icon:'c-blue-500 ti-home' ,type: ['-1']},
+              { name:'Chat' , path:'/profile/chat' , role:'contacts' , icon:'c-blue-500 ti-home' ,type:['0']},
             ],
           }
       },

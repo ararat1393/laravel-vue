@@ -64,6 +64,14 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        return $this->role === self::ROLE_SUPER_ADMIN;
+    }
+
     public function getStatus()
     {
         return self::statuses()[$this->status];
@@ -87,6 +95,14 @@ class User extends Authenticatable implements JWTSubject
     public function social()
     {
         return $this->hasOne( SocialAccount::class ,'user_id' ,'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts()
+    {
+        return$this->hasMany(ContactUs::class,'user_id','id');
     }
 
     /**

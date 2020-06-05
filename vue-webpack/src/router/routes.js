@@ -10,7 +10,8 @@ import ViewUser from "../components/templates/user/view";
 import EditUser from "../components/templates/user/edit";
 import CreateUser from "../components/templates/user/create";
 
-import MenuComponent from "../components/dashboard/MenuComponent";
+import ChatComponent from "../components/templates/chat/index";
+import ContactUsComponent from "../components/templates/contact-us/index";
 
 const routes = [
   {
@@ -20,7 +21,7 @@ const routes = [
         let path = window.Vue.auth.check('-1') ? '/dashboard' : '/profile';
         return next(path)
       }
-      return next();
+      return next('/login');
     },
   },
 
@@ -57,6 +58,32 @@ const routes = [
   { name: 'user.view',  path: '/users/view/:id',component: ViewUser, meta:{ auth:true } },
   { name: 'user.edit',  path: '/users/edit/:id',component: EditUser, meta:{ auth:true } },
   { name: 'user.create',  path: '/users/create',component: CreateUser, meta:{ auth:true } },
+
+  { name: 'Chat', path: '/chat', component: ChatComponent,
+    meta: {
+      auth: {
+        roles: ['0','-1'],
+        forbiddenRedirect: '/403'
+      },
+    }
+  },
+
+  { name: 'Contact-Us', path: '/contact-us', component: ContactUsComponent,
+    meta: {
+      auth: {
+        roles: ['-1'],
+        forbiddenRedirect: '/403'
+      },
+    }
+  },
+  { name: 'Contact', path: '/contact', component: ContactUsComponent,
+    meta: {
+      auth: {
+        roles: ['0'],
+        forbiddenRedirect: '/403'
+      },
+    }
+  },
 ];
 const router = new VueRouter({
   history: true,

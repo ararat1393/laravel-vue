@@ -1,6 +1,6 @@
 <template>
   <ul class="sidebar-menu scrollable pos-r">
-    <li class="nav-item mT-30 actived" v-for="(route, key) in items" v-bind:key="key" :rule='route.role'>
+    <li class="nav-item mT-30 actived" v-for="(route, key) in navItems" v-bind:key="key" :rule='route.role'>
       <router-link
         :to="{ name : route.name }"
         :key="key"
@@ -28,6 +28,15 @@
 
           }
       },
+      computed: {
+        navItems: {
+          get: function() {
+            return this.items.filter((item) => {
+                return item.type.includes(this.$auth.user().role)
+            })
+          },
+        },
+      }
     }
 </script>
 

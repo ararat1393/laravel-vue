@@ -5,24 +5,24 @@
       <i class="ti-bell"></i>
     </a>
 
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" >
       <li class="pX-20 pY-15 bdB">
         <i class="ti-bell pR-10"></i>
         <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
       </li>
       <li>
-        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm" style="max-height: 500px;">
           <li
             v-for="(notification, key) in notifications"
             :key="key"
           >
             <a href="" class='peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100'>
               <div class="peer mR-15">
-                <img class="w-3r bdrs-50p" src='https://randomuser.me/api/portraits/men/3.jpg' alt="">
+                <img class="w-3r bdrs-50p" :src='notification.user.cover_photo' alt="">
               </div>
               <div class="peer peer-greed">
                 <span>
-                  <span class="fw-500">{{notification.user_id}}</span>
+                  <span class="fw-500">{{notification.user.name}}</span>
                   <span class="c-grey-600">Added new <span class="text-dark">contact us</span>
                   </span>
                 </span>
@@ -44,20 +44,30 @@
 </template>
 
 <script>
-    export default {
+  import {mapActions, mapGetters} from "vuex";
+
+  export default {
       name: "NotificationComponent",
-      props:{
-          notifications:{
-            type:Array,
-            require:true
-          }
-      },
       computed: {
+        ...mapGetters({
+          notifications:'notViewedContactUsNotifications',
+        }),
         count: {
           get: function () {
             return this.notifications.length;
           },
         }
+      },
+      methods:{
+        ...mapActions({
+          getAllNotifications :'getAllContactUsNotifications',
+        }),
+      },
+      async mounted(){
+        this.getAllNotifications();
+        Echo.channel("comment").listen("Contact", e => {
+          this.notifications.push(e)
+        });
       },
     }
 </script>

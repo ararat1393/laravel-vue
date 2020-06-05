@@ -19,11 +19,7 @@
       loadComponent(){
         if(!this.$auth.check() ){
           return 'Unauthorized';
-        }
-        if( this.$auth.check('0') ){
-          return 'MenuComponent';
-        }
-        if( this.$auth.check('-1') ){
+        }else{
           return 'MenuComponent';
         }
       }

@@ -29,6 +29,10 @@ Vue.use(VueAxios, axios)
 axios.defaults.baseURL = process.env.BACKEND_URL
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = true;
+axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true;
+
 Vue.use(VueAuth, auth)
 
 Vue.config.productionTip = false
