@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Response;
 
 class Cors
 {
@@ -15,9 +16,21 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-        return $next($request)
-                ->header('Access-Control-Allow-Origin', 'http://localhost:8000/') // maybe put this into the .env file so you can change the URL in production.
-                ->header('Access-Control-Allow-Methods', '*') // or specify `'GET, POST, PUT, DELETE'` etc as the second parameter if you want to restrict the methods that are allowed.
-                ->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization'); // or add your headers.
+        header("Access-Control-Allow-Origin: *");
+
+        // ALLOW OPTIONS METHOD
+        $headers = [
+            'Access-Control-Allow-Methods'=> 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Headers'=> 'Content-Type, X-Auth-Token, Origin'
+        ];
+        if($request->getMethod() == "OPTIONS") {
+            // The client-side application can set only headers allowed in Access-Control-Allow-Headers
+            return Response::make('OK', 200, $headers);
+        }
+
+        $response = $next($request);
+        foreach($headers as $key => $value)
+            $response->header($key, $value);
+        return $response;
     }
 }

@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::post('/notification/new-contact-us','Api\NotificationController@contactUs');
 
-Route::group(['prefix' => 'v1','middleware'=>['cors'],'namespace' => '\App\Rest\version\v1'], function() {
+Route::group(['prefix' => 'v1','namespace' => '\App\Rest\version\v1'], function() {
 
     Route::prefix('auth')->group(function () {
         Route::post('register', 'AuthController@register');
@@ -53,6 +53,8 @@ Route::group(['prefix' => 'v1','middleware'=>['cors'],'namespace' => '\App\Rest\
         Route::post('auth/logout', 'AuthController@logout');
 
         Route::apiResource('users', 'UserController');
+        Route::apiResource('messages', 'MessagesController');
+        Route::get('messages/specific-user/{user}','MessagesController@messages');
         Route::post('/notification/new-contact-us','NotificationController@putContact');
 
     });

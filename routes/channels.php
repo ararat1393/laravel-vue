@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Broadcast;
+$user = auth()->guard('api')->user();
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
@@ -20,3 +21,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('comment', function () {
     return true;
 });
+
+//Broadcast::channel('chat_'.$user->id, function () {
+//    return true;
+//});

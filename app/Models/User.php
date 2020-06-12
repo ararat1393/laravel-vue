@@ -36,6 +36,8 @@ class User extends Authenticatable implements JWTSubject
 
     CONST SCENARIO_CREATE = 'creating';
 
+    private $specificUser;
+
     protected $fillable = [
         'name', 'email', 'password', 'role'
     ];
@@ -103,6 +105,52 @@ class User extends Authenticatable implements JWTSubject
     public function contacts()
     {
         return$this->hasMany(ContactUs::class,'user_id','id');
+    }
+
+    /**
+     * Get all messages with specific user send by me
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sentByMeMessages()
+    {
+        $query = $this->hasMany(Chat::class,'from_user_id','id')
+            ->whereNull('chats.deleted_at');
+        if( !is_null($this->specificUser) )
+            $query->where('to_user_id',$this->specificUser->id);
+        return $query;
+    }
+
+    /**
+     * Get all messages with specific user sent to me
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sentToMeMessages()
+    {
+        $query = $this->hasMany(Chat::class,'to_user_id','id')
+            ->whereNull('chats.deleted_at');
+        if( !is_null($this->specificUser) )
+            $query->where('from_user_id',$this->specificUser->id);
+        return $query;
+    }
+
+    /**
+     * Return All Messages
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return Chat::where([['from_user_id',$this->id], ['to_user_id',$this->specificUser->id]])
+            ->orWhere([['from_user_id',$this->specificUser->id], ['to_user_id',$this->id]])
+            ->whereNull('chats.deleted_at');
+    }
+
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function putUser( User $user)
+    {
+       return $this->specificUser = $user;
     }
 
     /**

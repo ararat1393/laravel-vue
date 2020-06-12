@@ -59,4 +59,12 @@ class Model extends El_Model
      * @param $model
      */
     public function afterDelete( $model ) {}
+
+    /**
+     * @return mixed
+     */
+    public function auth()
+    {
+        return auth()->guard('api')->user();
+    }
 }
