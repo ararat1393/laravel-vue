@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@websanova/vue-auth": "^2.22.0-beta",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0",
     "bootstrap-datepicker": "^1.7.1",
