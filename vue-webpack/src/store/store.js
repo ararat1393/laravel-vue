@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import users from './modules/users/store'
 import notifications from './modules/notifications/store'
 import chats from './modules/chats/store'
+import auth from "./modules/auth";
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
     users,
     notifications,
     chats,
+    auth
   }
 })
 

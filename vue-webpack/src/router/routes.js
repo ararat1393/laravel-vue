@@ -33,7 +33,13 @@ const routes = [
   // ADMIN ROUTES
   { name: 'Dashboard' , path: '/dashboard',
     meta: {
-      auth: {roles: ['-1'], redirect: {name: 'login'}, forbiddenRedirect: '/403'}
+      // auth: {
+      //   roles: ['-1'],
+      //   redirect: {
+      //     name: 'login'
+      //   },
+      //   forbiddenRedirect: '/403'
+      // }
     }
   },
 
@@ -92,10 +98,13 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!to.matched.length) {
-    next(from.path);
-  } else {
-    next();
+  const loggedIn = localStorage.getItem('user')
+
+  if (to.matched.some(record => record.meta.auth) && !loggedIn) {
+    next('/login')
+    return
   }
-});
+  next()
+})
+
 export default router

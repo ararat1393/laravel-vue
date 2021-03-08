@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="!$auth.ready()" id='loader'>
+    <div v-if="false" id='loader'>
       <div class="spinner"></div>
     </div>
     <div v-else>
@@ -11,23 +11,33 @@
 <script>
   import MenuComponent from "./components/dashboard/MenuComponent";
   import Unauthorized from "./components/unauthorized/MenuComponent"
+  import {mapGetters} from "vuex";
+  import axios from "axios";
   export default {
     name: "App",
     methods: {
     },
     computed:{
       loadComponent(){
-        if(!this.$auth.check() ){
+        if(!this.isLogged ){
           return 'Unauthorized';
         }else{
           return 'MenuComponent';
         }
-      }
+      },
+      ...mapGetters['isLogged']
     },
     components: {
       MenuComponent,
       Unauthorized
     },
+    created () {
+      const token = localStorage.getItem('access-token')
+      if (token) {
+        this.$store.dispatch('fetchUser');
+      }
+    },
+
   }
 
 </script>
